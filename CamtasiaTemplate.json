@@ -1,0 +1,92 @@
+{
+  "title": "",
+  "description": "",
+  "author": "",
+  "targetLoudness": -18,
+  "shouldApplyLoudnessNormalization": true,
+  "videoFormatFrameRate": 30,
+  "audioFormatSampleRate": 44100,
+  "width": 900,
+  "height": 720,
+  "version": "5.0",
+  "editRate": 30,
+  "authoringClientName": {
+    "name": "Camtasia",
+    "platform": "Windows",
+    "version": "21.0"
+  },
+  "sourceBin": [],
+  "timeline": {
+    "id": 2,
+    "sceneTrack": {
+      "scenes": [
+        {
+          "csml": {
+            "tracks": [
+              {
+                "trackIndex": 0,
+                "medias": []
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "trackAttributes": [
+      {
+        "ident": "",
+        "audioMuted": false,
+        "videoHidden": false,
+        "magnetic": false,
+        "matte": 0,
+        "solo": false,
+        "metadata": {
+          "IsLocked": "False",
+          "WinTrackHeight": "56"
+        }
+      }
+    ],
+    "captionAttributes": {
+      "enabled": true,
+      "fontName": "Arial",
+      "fontSize": 33,
+      "backgroundColor": [
+        0,
+        0,
+        0,
+        191
+      ],
+      "foregroundColor": [
+        255,
+        255,
+        255,
+        255
+      ],
+      "lang": "en",
+      "alignment": 0,
+      "defaultFontSize": true,
+      "opacity": 0.5,
+      "backgroundEnabled": true,
+      "backgroundOnlyAroundText": true
+    },
+    "gain": 1,
+    "legacyAttenuateAudioMix": false,
+    "backgroundColor": [
+      0,
+      0,
+      0,
+      255
+    ]
+  },
+  "metadata": {
+    "AutoSaveFile": "",
+    "CanvasZoom": 100,
+    "Date": "2022-02-18 04:39:59 PM",
+    "IsAutoSave": false,
+    "IsStandalone": false,
+    "ProfileName": "",
+    "Title": "Untitled Project",
+    "audioNarrationNotes": "",
+    "calloutStyle": "Basic"
+  }
+}
