@@ -22,7 +22,6 @@ def persianTextReshape(text):
 def strToDate(strTime) -> datetime:
     times = strTime.split(",")
     seperated = times[0].split(":")
-
     hour = 0
     minute = 0
     second = 0
@@ -32,7 +31,8 @@ def strToDate(strTime) -> datetime:
         minute = int(seperated[1])
         second = int(seperated[2])
         milisec = int(times[1])
-    return (datetime.time(hour=hour, minute=minute, second=second, microsecond=milisec))
+    return (datetime.time(hour=hour, minute=minute,
+    second=second, microsecond=milisec))
 
 
 def strToDateTime(strTime) -> datetime:
@@ -47,7 +47,8 @@ def strToDateTime(strTime) -> datetime:
         minute = int(seperated[1])
         second = int(seperated[2])
         milisec = int(times[1])
-    return (datetime.datetime(year=2000, month=1, day=1, hour=hour, minute=minute, second=second, microsecond=milisec))
+    return (datetime.datetime(year=2000, month=1, day=1, hour=hour,
+     minute=minute, second=second, microsecond=milisec))
 
 
 def getTimeLen(lineStartTime, lineEndTime) -> int:
@@ -85,7 +86,6 @@ def main() -> list:
     lineStartTime = ''
     lineEndTime = ''
     lineTimeLen = 0
-
     sentenceStartTime = ''
     sentenceEndTime = ''
     sentenceTimeLen = 0
@@ -183,5 +183,4 @@ def main() -> list:
                         previousText = previousText+' '+sentence
             else:  # If it haven't a complete sentence add it to previous text
                 previousText = previousText+' '+sentence
-    # displaySentences(sentences)
     return sentences

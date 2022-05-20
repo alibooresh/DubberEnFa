@@ -13,14 +13,12 @@ def record():
     secondInCamtasia = 30
     durationTime = subtitles[index]["sentenceTimeLen"]*secondInCamtasia
     sentenceStartTime = subtitles[index]["sentenceStartTime"]
-
     hour = sentenceStartTime.hour
     min = sentenceStartTime.minute
     sec = sentenceStartTime.second
     min = min + hour*60
     sec = sec+min*60
     startTime = sec * 30
-
     # Sampling frequency
     freq = 44100
     # Recording duration
@@ -75,7 +73,7 @@ def Increase():
 
 def Decrease():
     global index
-    global subtitles
+    global subtzitles
     index = index-1
     if index < 0:
         index = 0
@@ -86,9 +84,24 @@ def Decrease():
     indexlabel.config(text=index+1)
 
 
+def finish():
+    path = r"B:\Work\DU\dubassistant\Camtasia Project.tscproj"
+    jsonFileName = "CamtasiaProject.json"
+    CamtasiaProjectFileName = "CamtasiaProject.tscproj"
+    camtasiaTemplate = open(os.path.join(path, jsonFileName), "r")
+    json_object = json.load(camtasiaTemplate)
+    a_file = open(os.path.join(path, CamtasiaProjectFileName), "w")
+    json.dump(json_object, a_file)
+    a_file.close()
+
+
+def changeFrame():
+    introFrame.pack_forget()
+    mainFrame.pack()
+
+
 text = ""
 index = 0
-
 
 root = Tk()
 root.geometry("700x850")
@@ -97,11 +110,18 @@ root.configure(bg='#1f1f1f')
 logo = PhotoImage(file="logo.png")
 img = ImageTk.PhotoImage(Image.open("logo.png"))
 root.iconphoto(False, logo)
+
 subtitles = Main.main()
+
 templateFile = open("CamtasiaTemplate.json", "r")
 template = json.load(templateFile)
 path = r"B:\Work\DU\dubassistant\Camtasia Project.tscproj"
 jsonFileName = "CamtasiaProject.json"
+for file in os.listdir(path):
+    base_file, ext = os.path.splitext(file)
+    if ext == '.wav':
+        print(ext)
+        os.remove(path + '\\'+file)
 # Serializing json
 json_object = json.dumps(template, indent=4)
 with open(os.path.join(path, jsonFileName), "w") as outfile:
@@ -110,57 +130,73 @@ sentence = subtitles[0]['sentence']
 sentenceStartTime = subtitles[0]["sentenceStartTime"]
 sentenceEndTime = subtitles[0]["sentenceEndTime"]
 sentenceTimeLen = subtitles[0]["sentenceTimeLen"]
-myframe = Frame(root)
-myframe.pack()
 
-logoLabel = Label(root, image=img, bg='#1f1f1f')
+mainFrame = Frame(root)
+mainFrame.configure(bg='#1f1f1f')
+introFrame = Frame(root)
+introFrame.configure(bg='#1f1f1f')
+introFrame.pack()
+logoLabel = Label(mainFrame, image=img, bg='#1f1f1f')
 logoLabel.pack()
-appNameLabel = Label(root, text=Main.persianTextReshape(
+appNameLabel = Label(mainFrame, text=Main.persianTextReshape(
     "نرم افزار دستیار دوبله DubberEnFa"), bg='#1f1f1f', fg="white", font="tahoma 18")
 appNameLabel.pack()
-increasebutton = Button(root, text=Main.persianTextReshape(
+logoLabel1 = Label(introFrame, image=img, bg='#1f1f1f')
+logoLabel1.pack()
+appNameLabel1 = Label(introFrame, text=Main.persianTextReshape(
+    "نرم افزار دستیار دوبله DubberEnFa"), bg='#1f1f1f', fg="white", font="tahoma 18")
+appNameLabel1.pack()
+increasebutton = Button(mainFrame, text=Main.persianTextReshape(
     "جمله بعدی<<"), command=Increase, border=0, font="tahoma 14", fg="white", bg='#1d314f')
 increasebutton.pack(pady=5)
-decreasebutton = Button(root, text=Main.persianTextReshape(
+decreasebutton = Button(mainFrame, text=Main.persianTextReshape(
     "جمله قبلی>>"), command=Decrease, border=0, font="tahoma 14", fg="white", bg='#1d314f')
 decreasebutton.pack(pady=5)
 
 # Index
-indexlabelplaceholder = Label(
-    text=Main.persianTextReshape("شماره جمله:"), font="tahoma 12 bold", fg="white", bg='#1f1f1f')
+indexlabelplaceholder = Label(mainFrame, text=Main.persianTextReshape(
+    "شماره جمله:"), font="tahoma 12 bold", fg="white", bg='#1f1f1f')
 indexlabelplaceholder.pack()
-indexlabel = Label(root, text=index+1, font="14", fg="white", bg='#2e2e2e')
+indexlabel = Label(mainFrame, text=index+1, font="14",
+                   fg="white", bg='#2e2e2e')
 indexlabel.pack(pady=5)
 # Sentence
-sentenselabelplaceholder = Label(
-    text=Main.persianTextReshape("جمله:"), font="tahoma 12 bold", fg="white", bg='#1f1f1f')
+sentenselabelplaceholder = Label(mainFrame, text=Main.persianTextReshape(
+    "جمله:"), font="tahoma 12 bold", fg="white", bg='#1f1f1f')
 sentenselabelplaceholder.pack()
-sentenselabel = Label(root, text=sentence,
+sentenselabel = Label(mainFrame, text=sentence,
                       font="tahoma 14", fg="white", bg='#2e2e2e')
 sentenselabel.pack(pady=5)
 # Sentence Start Time
-sentencestarttimelabelplaceholder = Label(
-    text=Main.persianTextReshape("زمان شروع جمله:"), font="tahoma 8 bold", fg="white", bg='#1f1f1f')
+sentencestarttimelabelplaceholder = Label(mainFrame, text=Main.persianTextReshape(
+    "زمان شروع جمله:"), font="tahoma 8 bold", fg="white", bg='#1f1f1f')
 sentencestarttimelabelplaceholder.pack()
 sentencestarttimelabel = Label(
-    root, text=sentenceStartTime, font="tahoma 14", fg="white", bg='#2e2e2e')
+    mainFrame, text=sentenceStartTime, font="tahoma 14", fg="white", bg='#2e2e2e')
 sentencestarttimelabel.pack(pady=5)
 # Sentence End Time
-sentenceendtimelabelplaceholder = Label(
-    text=Main.persianTextReshape("زمان پایان جمله:"), font="tahoma 8 bold", fg="white", bg='#1f1f1f')
+sentenceendtimelabelplaceholder = Label(mainFrame, text=Main.persianTextReshape(
+    "زمان پایان جمله:"), font="tahoma 8 bold", fg="white", bg='#1f1f1f')
 sentenceendtimelabelplaceholder.pack()
 sentenceendtimelabel = Label(
-    root, text=sentenceEndTime, font="tahoma 14", fg="white", bg='#2e2e2e')
+    mainFrame, text=sentenceEndTime, font="tahoma 14", fg="white", bg='#2e2e2e')
 sentenceendtimelabel.pack(pady=5)
 # Sentence Time Length
-sentencetimelenlabelplaceholder = Label(
-    text=Main.persianTextReshape("طول جمله(ثانیه):"), font="tahoma 8 bold", fg="white", bg='#1f1f1f')
+sentencetimelenlabelplaceholder = Label(mainFrame, text=Main.persianTextReshape(
+    "طول جمله(ثانیه):"), font="tahoma 8 bold", fg="white", bg='#1f1f1f')
 sentencetimelenlabelplaceholder.pack()
 sentencetimelenlabel = Label(
-    root, text=sentenceTimeLen, font="tahoma 14", fg="white", bg='#2e2e2e')
+    mainFrame, text=sentenceTimeLen, font="tahoma 14", fg="white", bg='#2e2e2e')
 sentencetimelenlabel.pack(pady=5)
 # Record form
-recordbutton = Button(root, font="tahoma 13", border=0, fg="white",
+recordbutton = Button(mainFrame, font="tahoma 13", border=0, fg="white",
                       bg='#325fbf', text=Main.persianTextReshape("ضبط صدا"), command=record)
 recordbutton.pack(pady=10)
+
+finishbutton = Button(mainFrame, font="tahoma 13", border=0, fg="white",
+                      bg='#325fbf', text=Main.persianTextReshape("اتمام دوبله"), command=finish)
+finishbutton.pack(pady=10)
+startbutton = Button(introFrame, font="tahoma 13", border=0, fg="white",
+                     bg='#325fbf', text=Main.persianTextReshape("شروع"), command=changeFrame)
+startbutton.pack(pady=10)
 root.mainloop()
