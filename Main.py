@@ -9,8 +9,11 @@ translator = Translator()
 
 
 def translateText(src: str, dest: str, text: str) -> str:
-    text = translator.translate(src=src, dest=dest, text=text).text
-    return persianTextReshape(text)
+    if(len(text) > 0):
+        result = translator.translate(src=src, dest=dest, text=text)
+        return persianTextReshape(result.text)
+    else:
+        return ''
 
 
 def persianTextReshape(text):
@@ -32,7 +35,7 @@ def strToDate(strTime) -> datetime:
         second = int(seperated[2])
         milisec = int(times[1])
     return (datetime.time(hour=hour, minute=minute,
-    second=second, microsecond=milisec))
+                          second=second, microsecond=milisec))
 
 
 def strToDateTime(strTime) -> datetime:
@@ -48,7 +51,7 @@ def strToDateTime(strTime) -> datetime:
         second = int(seperated[2])
         milisec = int(times[1])
     return (datetime.datetime(year=2000, month=1, day=1, hour=hour,
-     minute=minute, second=second, microsecond=milisec))
+                              minute=minute, second=second, microsecond=milisec))
 
 
 def getTimeLen(lineStartTime, lineEndTime) -> int:
@@ -68,9 +71,6 @@ def displaySentences(sentences):
         print('******************************'
               + str(sentence['id'])+'********************************')
         print()
-        print('Original Sentence is :'+'\t\t =>\t'
-              + sentence['originalSentence'])
-        print()
         print('Sentence is :'+'\t\t =>\t' + sentence['sentence'])
         print()
         print('Start Time is :'+'\t\t =>\t'
@@ -82,7 +82,7 @@ def displaySentences(sentences):
               + str(sentence['sentenceTimeLen']))
 
 
-def main() -> list:
+def main(path: str) -> list:
     lineStartTime = ''
     lineEndTime = ''
     lineTimeLen = 0
@@ -92,12 +92,14 @@ def main() -> list:
     sentence = ''
     previousText = ''
     willAddOriginalSentence = ''
-    willAddTranslatedSentence = ''
     id = 1
     sentences = []
     print("\t\t******** Starting Process... ********")
     print("\t\t******** Reading SRT File... ********")
-    file = open('subtitle.srt', mode='r', encoding='utf-8')
+    try:
+        file = open(path, mode='r', encoding='utf-8')
+    except:
+        print('Error Reading File')
     subtitleLines = file.read()
     splited = subtitleLines.split('\n')
     lines = []
@@ -126,8 +128,7 @@ def main() -> list:
                     "id": id,
                     "sentenceStartTime": sentenceStartTime,
                     "sentenceEndTime": sentenceEndTime,
-                    "sentence": willAddTranslatedSentence,
-                    "originalSentence": willAddOriginalSentence,
+                    "sentence": willAddOriginalSentence,
                     "sentenceTimeLen": sentenceTimeLen
                     }
                 sentences.append(tmpDic)
@@ -135,7 +136,6 @@ def main() -> list:
                 sentenceEndTime = ''
                 sentenceTimeLen = 0
                 willAddOriginalSentence = ''
-                willAddTranslatedSentence = ''
                 id = id+1
 
         if(isText):  # Line have text
@@ -155,9 +155,7 @@ def main() -> list:
                         # Add to previous text(non complete sentence)
                         completeSentense = previousText + ' ' + line
                         willAddOriginalSentence = willAddOriginalSentence + \
-                            ' '+completeSentense  # Translat the complete sentence
-                        willAddTranslatedSentence = willAddTranslatedSentence+' ' + translateText(
-                            "en", "fa", completeSentense)
+                            ' '+completeSentense
                         previousText = ''
                         if(lineIndex == len(textList)-1):
                             length = len(sentence)-sentenceLen
@@ -169,8 +167,7 @@ def main() -> list:
                                 "id": id,
                                 "sentenceStartTime": sentenceStartTime,
                                 "sentenceEndTime": sentenceEndTime,
-                                "sentence": willAddTranslatedSentence,
-                                "originalSentence": willAddOriginalSentence,
+                                "sentence": willAddOriginalSentence,
                                 "sentenceTimeLen": sentenceTimeLen
                                 }
                             sentences.append(tmpDic)
@@ -178,7 +175,6 @@ def main() -> list:
                             sentenceEndTime = ''
                             sentenceTimeLen = 0
                             willAddOriginalSentence = ''
-                            willAddTranslatedSentence = ''
                     else:  # If it's not a complete sentence add it to previous text
                         previousText = previousText+' '+sentence
             else:  # If it haven't a complete sentence add it to previous text

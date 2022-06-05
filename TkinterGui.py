@@ -5,6 +5,9 @@ import sounddevice as sd
 import Main
 import os
 import json
+from tkinter import filedialog as fd
+from tkinter.messagebox import *
+from pathlib import Path
 
 
 def record():
@@ -64,7 +67,9 @@ def Increase():
     index = index+1
     if index > length-1:
         index = length-1
-    sentenselabel.config(text=subtitles[index]["sentence"])
+    print(subtitles[index]["sentence"])
+    sentenselabel.config(text=Main.translateText(
+        'en', 'fa', subtitles[index]["sentence"]))
     sentencestarttimelabel.config(text=subtitles[index]["sentenceStartTime"])
     sentenceendtimelabel.config(text=subtitles[index]["sentenceEndTime"])
     sentencetimelenlabel.config(text=subtitles[index]["sentenceTimeLen"])
@@ -77,7 +82,8 @@ def Decrease():
     index = index-1
     if index < 0:
         index = 0
-    sentenselabel.config(text=subtitles[index]["sentence"])
+    sentenselabel.config(text=Main.translateText(
+        'en', 'fa', subtitles[index]["sentence"]))
     sentencestarttimelabel.config(text=subtitles[index]["sentenceStartTime"])
     sentenceendtimelabel.config(text=subtitles[index]["sentenceEndTime"])
     sentencetimelenlabel.config(text=subtitles[index]["sentenceTimeLen"])
@@ -102,6 +108,46 @@ def changeFrame():
     mainFrame.pack()
 
 
+def selectSubtitleFile():
+    global startbutton
+    global subtitles
+    global sentence
+    global sentenceStartTime
+    global sentenceEndTime
+    global sentenceTimeLen
+    subtitleFileTypes = (
+        ('subtitle files', '*.srt'),
+        ('All files', '*.*')
+    )
+    filename = fd.askopenfilename(
+        title=Main.persianTextReshape('انتخاب فایل زیرنویس'),
+        initialdir='/',
+        filetypes=subtitleFileTypes)
+    print(filename)
+
+    if(len(filename) > 0):
+        path = Path(filename)
+        subtitles = Main.main(path)
+        if len(subtitles) > 0:
+            sentence = Main.translateText('en', 'fa', subtitles[0]['sentence'])
+            sentenceStartTime = subtitles[0]["sentenceStartTime"]
+            sentenceEndTime = subtitles[0]["sentenceEndTime"]
+            sentenceTimeLen = subtitles[0]["sentenceTimeLen"]
+            Increase()
+            Decrease()
+            startbutton.pack(pady=10)
+        else:
+            showerror(
+                title='خطا',
+                message='خطایی در پردازش زیرنویس رخ داده است.'
+                )
+    else:
+        showwarning(
+            title='اخطار',
+            message='فایلی انتخاب نشد! لطفا یک فایل را انتخاب کنید.',
+            )
+
+
 text = ""
 index = 0
 
@@ -113,7 +159,8 @@ logo = PhotoImage(file="logo.png")
 img = ImageTk.PhotoImage(Image.open("logo.png"))
 root.iconphoto(False, logo)
 
-subtitles = Main.main()
+subtitles = [{'sentence': '', 'sentenceStartTime': '',
+              'sentenceEndTime': '', 'sentenceTimeLen': ''}]
 
 templateFile = open("CamtasiaTemplate.json", "r")
 template = json.load(templateFile)
@@ -138,6 +185,7 @@ mainFrame.configure(bg='#1f1f1f')
 introFrame = Frame(root)
 introFrame.configure(bg='#1f1f1f')
 introFrame.pack()
+filePickFrame = Frame(root)
 filePickFrame.configure(bg='#1f1f1f')
 filePickFrame.pack()
 logoLabel = Label(mainFrame, image=img, bg='#1f1f1f')
@@ -202,5 +250,10 @@ finishbutton = Button(mainFrame, font="tahoma 13", border=0, fg="white",
 finishbutton.pack(pady=10)
 startbutton = Button(introFrame, font="tahoma 13", border=0, fg="white",
                      bg='#325fbf', text=Main.persianTextReshape("شروع"), command=changeFrame)
-startbutton.pack(pady=10)
+
+open_button = Button(introFrame,
+                     font="tahoma 13", border=0, fg="white",
+                     bg='#325fbf', text=Main.persianTextReshape("انتخاب فایل زیرنویس"), command=selectSubtitleFile)
+
+open_button.pack(expand=True)
 root.mainloop()

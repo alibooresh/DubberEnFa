@@ -1,1 +1,437 @@
-{"title": "", "description": "", "author": "", "targetLoudness": -18, "shouldApplyLoudnessNormalization": true, "videoFormatFrameRate": 30, "audioFormatSampleRate": 44100, "width": 900, "height": 720, "version": "5.0", "editRate": 30, "authoringClientName": {"name": "Camtasia", "platform": "Windows", "version": "21.0"}, "sourceBin": [], "timeline": {"id": 2, "sceneTrack": {"scenes": [{"csml": {"tracks": [{"trackIndex": 0, "medias": []}]}}]}, "trackAttributes": [{"ident": "", "audioMuted": false, "videoHidden": false, "magnetic": false, "matte": 0, "solo": false, "metadata": {"IsLocked": "False", "WinTrackHeight": "56"}}], "captionAttributes": {"enabled": true, "fontName": "Arial", "fontSize": 33, "backgroundColor": [0, 0, 0, 191], "foregroundColor": [255, 255, 255, 255], "lang": "en", "alignment": 0, "defaultFontSize": true, "opacity": 0.5, "backgroundEnabled": true, "backgroundOnlyAroundText": true}, "gain": 1, "legacyAttenuateAudioMix": false, "backgroundColor": [0, 0, 0, 255]}, "metadata": {"AutoSaveFile": "", "CanvasZoom": 100, "Date": "2022-02-18 04:39:59 PM", "IsAutoSave": false, "IsStandalone": false, "ProfileName": "", "Title": "Untitled Project", "audioNarrationNotes": "", "calloutStyle": "Basic"}}
+{
+  "title" : "",
+  "description" : "",
+  "author" : "",
+  "targetLoudness" : -18.0,
+  "shouldApplyLoudnessNormalization" : true,
+  "videoFormatFrameRate" : 30,
+  "audioFormatSampleRate" : 44100,
+  "width" : 1280.0,
+  "height" : 720.0,
+  "version" : "5.0",
+  "editRate" : 30,
+  "authoringClientName" :  {
+    "name" : "Camtasia",
+    "platform" : "Windows",
+    "version" : "21.0"
+  },
+  "sourceBin" : [
+    {
+      "id" : 1,
+      "src" : "B:\\Work\\DU\\dubassistant\\Camtasia Project.tscproj\\recording-1.wav",
+      "rect" : [0, 0, 0, 0],
+      "lastMod" : "20220605T091244",
+      "loudnessNormalization" : true,
+      "sourceTracks" : [
+        {
+          "range" : [0, 50000000],
+          "type" : 2,
+          "editRate" : 10000000,
+          "trackRect" : [0, 0, 0, 0],
+          "sampleRate" : 44100,
+          "bitDepth" : 32,
+          "numChannels" : 2,
+          "integratedLUFS" : -49.6945558155127,
+          "peakLevel" : 0.022308349609375,
+          "metaData" : ""
+        }
+      ],
+      "metadata" : {
+        "timeAdded" : "20220214T113239.084520"
+      }
+    },
+    {
+      "id" : 2,
+      "src" : "B:\\Work\\DU\\dubassistant\\Camtasia Project.tscproj\\recording-2.wav",
+      "rect" : [0, 0, 0, 0],
+      "lastMod" : "20220605T091258",
+      "loudnessNormalization" : true,
+      "sourceTracks" : [
+        {
+          "range" : [0, 30000000],
+          "type" : 2,
+          "editRate" : 10000000,
+          "trackRect" : [0, 0, 0, 0],
+          "sampleRate" : 44100,
+          "bitDepth" : 32,
+          "numChannels" : 2,
+          "integratedLUFS" : -49.6945558155127,
+          "peakLevel" : 0.022308349609375,
+          "metaData" : ""
+        }
+      ],
+      "metadata" : {
+        "timeAdded" : "20220214T113239.084520"
+      }
+    },
+    {
+      "id" : 3,
+      "src" : "B:\\Work\\DU\\dubassistant\\Camtasia Project.tscproj\\recording-3.wav",
+      "rect" : [0, 0, 0, 0],
+      "lastMod" : "20220605T091304",
+      "loudnessNormalization" : true,
+      "sourceTracks" : [
+        {
+          "range" : [0, 30000000],
+          "type" : 2,
+          "editRate" : 10000000,
+          "trackRect" : [0, 0, 0, 0],
+          "sampleRate" : 44100,
+          "bitDepth" : 32,
+          "numChannels" : 2,
+          "integratedLUFS" : -49.6945558155127,
+          "peakLevel" : 0.022308349609375,
+          "metaData" : ""
+        }
+      ],
+      "metadata" : {
+        "timeAdded" : "20220214T113239.084520"
+      }
+    },
+    {
+      "id" : 4,
+      "src" : "B:\\Work\\DU\\dubassistant\\Camtasia Project.tscproj\\recording-4.wav",
+      "rect" : [0, 0, 0, 0],
+      "lastMod" : "20220605T091313",
+      "loudnessNormalization" : true,
+      "sourceTracks" : [
+        {
+          "range" : [0, 50000000],
+          "type" : 2,
+          "editRate" : 10000000,
+          "trackRect" : [0, 0, 0, 0],
+          "sampleRate" : 44100,
+          "bitDepth" : 32,
+          "numChannels" : 2,
+          "integratedLUFS" : -49.6945558155127,
+          "peakLevel" : 0.022308349609375,
+          "metaData" : ""
+        }
+      ],
+      "metadata" : {
+        "timeAdded" : "20220214T113239.084520"
+      }
+    },
+    {
+      "id" : 5,
+      "src" : "D:\\IDM Downloads\\Videoes\\Ali\\INTRO TEMPLATE-16.mp4",
+      "rect" : [0, 0, 1280, 720],
+      "lastMod" : "20210625T214334",
+      "loudnessNormalization" : true,
+      "sourceTracks" : [
+        {
+          "range" : [0, 10998],
+          "type" : 0,
+          "editRate" : 1000,
+          "trackRect" : [0, 0, 1280, 720],
+          "sampleRate" : "48009/2000",
+          "bitDepth" : 24,
+          "numChannels" : 0,
+          "integratedLUFS" : 100.0,
+          "peakLevel" : -1.0,
+          "metaData" : ""
+        },
+        {
+          "range" : [0, 10982],
+          "type" : 2,
+          "editRate" : 1000,
+          "trackRect" : [0, 0, 0, 0],
+          "sampleRate" : 1000,
+          "bitDepth" : 16,
+          "numChannels" : 2,
+          "integratedLUFS" : -1.79769313486232e+308,
+          "peakLevel" : 0.0,
+          "metaData" : ""
+        }
+      ],
+      "metadata" : {
+        "timeAdded" : "20220605T092041.670796"
+      }
+    }
+  ],
+  "timeline" : {
+    "id" : 6,
+    "sceneTrack" : {
+      "scenes" : [
+        {
+          "csml" : {
+            "tracks" : [
+              {
+                "trackIndex" : 0,
+                "medias" : [
+                  {
+                    "id" : 7,
+                    "_type" : "AMFile",
+                    "src" : 1,
+                    "trackNumber" : 0,
+                    "attributes" : {
+                      "ident" : "recording-1",
+                      "gain" : 1.0,
+                      "mixToMono" : false,
+                      "loudnessNormalization" : true
+                    },
+                      "channelNumber" : "0,1",
+                    "effects" : [
+
+                    ],
+                    "start" : 2430,
+                    "duration" : 150,
+                    "mediaStart" : 0,
+                    "mediaDuration" : 150,
+                    "scalar" : 1,
+                    "metadata" : {
+                      "clipSpeedAttribute" : false
+                    },
+                    "animationTracks" : {
+
+                    }
+                  },
+                  {
+                    "id" : 8,
+                    "_type" : "AMFile",
+                    "src" : 2,
+                    "trackNumber" : 0,
+                    "attributes" : {
+                      "ident" : "recording-2",
+                      "gain" : 1.0,
+                      "mixToMono" : false,
+                      "loudnessNormalization" : true
+                    },
+                      "channelNumber" : "0,1",
+                    "effects" : [
+
+                    ],
+                    "start" : 2940,
+                    "duration" : 90,
+                    "mediaStart" : 0,
+                    "mediaDuration" : 90,
+                    "scalar" : 1,
+                    "metadata" : {
+                      "clipSpeedAttribute" : false
+                    },
+                    "animationTracks" : {
+
+                    }
+                  },
+                  {
+                    "id" : 9,
+                    "_type" : "AMFile",
+                    "src" : 3,
+                    "trackNumber" : 0,
+                    "attributes" : {
+                      "ident" : "recording-3",
+                      "gain" : 1.0,
+                      "mixToMono" : false,
+                      "loudnessNormalization" : true
+                    },
+                      "channelNumber" : "0,1",
+                    "effects" : [
+
+                    ],
+                    "start" : 3090,
+                    "duration" : 90,
+                    "mediaStart" : 0,
+                    "mediaDuration" : 90,
+                    "scalar" : 1,
+                    "metadata" : {
+                      "clipSpeedAttribute" : false
+                    },
+                    "animationTracks" : {
+
+                    }
+                  },
+                  {
+                    "id" : 10,
+                    "_type" : "AMFile",
+                    "src" : 4,
+                    "trackNumber" : 0,
+                    "attributes" : {
+                      "ident" : "recording-4",
+                      "gain" : 1.0,
+                      "mixToMono" : false,
+                      "loudnessNormalization" : true
+                    },
+                      "channelNumber" : "0,1",
+                    "effects" : [
+
+                    ],
+                    "start" : 3210,
+                    "duration" : 150,
+                    "mediaStart" : 0,
+                    "mediaDuration" : 150,
+                    "scalar" : 1,
+                    "metadata" : {
+                      "clipSpeedAttribute" : false
+                    },
+                    "animationTracks" : {
+
+                    }
+                  }
+                ]
+              },
+              {
+                "trackIndex" : 1,
+                "medias" : [
+                  {
+                    "id" : 11,
+                    "_type" : "UnifiedMedia",
+                    "video" : 
+                        {
+                          "id" : 12,
+                          "_type" : "VMFile",
+                          "src" : 5,
+                          "trackNumber" : 0,
+                          "attributes" : {
+                            "ident" : "INTRO TEMPLATE-16"
+                          },
+                          "parameters" : {
+                            "sourceCrop0" : {
+                              "type" : "double",
+                              "defaultValue" : 0.0,
+                              "interp" : "eioe"
+                            },
+                            "sourceCrop1" : {
+                              "type" : "double",
+                              "defaultValue" : 0.0,
+                              "interp" : "eioe"
+                            },
+                            "sourceCrop2" : {
+                              "type" : "double",
+                              "defaultValue" : 0.0,
+                              "interp" : "eioe"
+                            },
+                            "sourceCrop3" : {
+                              "type" : "double",
+                              "defaultValue" : 0.0,
+                              "interp" : "eioe"
+                            },
+                            "geometryCrop0" : {
+                              "type" : "double",
+                              "defaultValue" : 0.0,
+                              "interp" : "eioe"
+                            },
+                            "geometryCrop1" : {
+                              "type" : "double",
+                              "defaultValue" : 0.0,
+                              "interp" : "eioe"
+                            },
+                            "geometryCrop2" : {
+                              "type" : "double",
+                              "defaultValue" : 0.0,
+                              "interp" : "eioe"
+                            },
+                            "geometryCrop3" : {
+                              "type" : "double",
+                              "defaultValue" : 0.0,
+                              "interp" : "eioe"
+                            }
+                          },
+                          "effects" : [
+
+                          ],
+                          "start" : 869,
+                          "duration" : 329,
+                          "mediaStart" : 0,
+                          "mediaDuration" : 329,
+                          "scalar" : 1,
+                          "animationTracks" : {
+
+                          }
+                        },
+                    "audio" : 
+                        {
+                          "id" : 13,
+                          "_type" : "AMFile",
+                          "src" : 5,
+                          "trackNumber" : 1,
+                          "attributes" : {
+                            "ident" : "",
+                            "gain" : 1.0,
+                            "mixToMono" : false,
+                            "loudnessNormalization" : true
+                          },
+                            "channelNumber" : "0,1",
+                          "effects" : [
+
+                          ],
+                          "start" : 869,
+                          "duration" : 329,
+                          "mediaStart" : 0,
+                          "mediaDuration" : 329,
+                          "scalar" : 1,
+                          "animationTracks" : {
+
+                          }
+                        }
+,
+                    "start" : 869,
+                    "duration" : 329,
+                    "mediaStart" : 0,
+                    "mediaDuration" : 329,
+                    "scalar" : 1,
+                    "metadata" : {
+                      "clipSpeedAttribute" : false
+                    }
+                  }
+                ]
+              }            ]
+          }
+        }
+      ]
+    },
+    "trackAttributes" : [
+      {
+        "ident" : "",
+        "audioMuted" : false,
+        "videoHidden" : false,
+        "magnetic" : false,
+        "matte" : 0,
+        "solo" : false,
+        "metadata" : {
+          "IsLocked" : "False",
+          "WinTrackHeight" : "56"
+        }
+      },
+      {
+        "ident" : "",
+        "audioMuted" : false,
+        "videoHidden" : false,
+        "magnetic" : false,
+        "matte" : 0,
+        "solo" : false,
+        "metadata" : {
+          "IsLocked" : "False",
+          "WinTrackHeight" : "56"
+        }
+      }
+    ],
+    "captionAttributes" : {
+      "enabled" : true,
+      "fontName" : "Arial",
+      "fontSize" : 42,
+      "backgroundColor" : [ 0, 0, 0, 191],
+      "foregroundColor" : [ 255, 255, 255, 255],
+      "lang" : "en",
+      "alignment" : 0,
+      "defaultFontSize" : true,
+      "opacity" : 0.5,
+      "backgroundEnabled" : true,
+      "backgroundOnlyAroundText" : true
+    },
+    "gain" : 1.0,
+    "legacyAttenuateAudioMix" : false,
+    "backgroundColor" : [ 0, 0, 0, 255]
+  },
+  "metadata" : {
+    "AutoSaveFile" : "C:\\Users\\ASUS\\AppData\\Local\\TechSmith\\Camtasia Studio\\21.0\\Auto-Saves\\CamtasiaProject21f37d0e.autosave.tscproj",
+    "CanvasZoom" : 100,
+    "Date" : "2022-02-18 04:39:59 PM",
+    "IsAutoSave" : false,
+    "IsStandalone" : false,
+    "ProfileName" : "",
+    "ProjectDimensionsChanged" : "1",
+    "Title" : "Untitled Project",
+    "audioNarrationNotes" : "",
+    "calloutStyle" : "Basic"
+  }
+}
