@@ -85,6 +85,7 @@ def Decrease():
 
 
 def finish():
+    global root
     path = r"B:\Work\DU\dubassistant\Camtasia Project.tscproj"
     jsonFileName = "CamtasiaProject.json"
     CamtasiaProjectFileName = "CamtasiaProject.tscproj"
@@ -93,6 +94,7 @@ def finish():
     a_file = open(os.path.join(path, CamtasiaProjectFileName), "w")
     json.dump(json_object, a_file)
     a_file.close()
+    root.destroy()
 
 
 def changeFrame():
@@ -136,6 +138,8 @@ mainFrame.configure(bg='#1f1f1f')
 introFrame = Frame(root)
 introFrame.configure(bg='#1f1f1f')
 introFrame.pack()
+filePickFrame.configure(bg='#1f1f1f')
+filePickFrame.pack()
 logoLabel = Label(mainFrame, image=img, bg='#1f1f1f')
 logoLabel.pack()
 appNameLabel = Label(mainFrame, text=Main.persianTextReshape(
