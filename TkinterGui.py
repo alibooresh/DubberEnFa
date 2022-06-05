@@ -67,7 +67,6 @@ def Increase():
     index = index+1
     if index > length-1:
         index = length-1
-    print(subtitles[index]["sentence"])
     sentenselabel.config(text=Main.translateText(
         'en', 'fa', subtitles[index]["sentence"]))
     sentencestarttimelabel.config(text=subtitles[index]["sentenceStartTime"])
@@ -123,7 +122,6 @@ def selectSubtitleFile():
         title=Main.persianTextReshape('انتخاب فایل زیرنویس'),
         initialdir='/',
         filetypes=subtitleFileTypes)
-    print(filename)
 
     if(len(filename) > 0):
         path = Path(filename)
@@ -169,7 +167,6 @@ jsonFileName = "CamtasiaProject.json"
 for file in os.listdir(path):
     base_file, ext = os.path.splitext(file)
     if ext == '.wav':
-        print(ext)
         os.remove(path + '\\'+file)
 # Serializing json
 json_object = json.dumps(template, indent=4)
