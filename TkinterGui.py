@@ -8,6 +8,8 @@ import json
 from tkinter import filedialog as fd
 from tkinter.messagebox import *
 from pathlib import Path
+import pyloudnorm as pyln
+import soundfile as sf
 
 
 def record():
@@ -26,6 +28,8 @@ def record():
     freq = 44100
     # Recording duration
     duration = subtitles[index]["sentenceTimeLen"]
+    if duration == 0:
+        duration = 1
     recording = sd.rec(int(duration * freq),
                        samplerate=freq, channels=2)
     # Record audio for the given number of seconds
@@ -36,6 +40,9 @@ def record():
     audionameindex = "recording-"+str(index+1)
     path = r"B:\Work\DU\dubassistant\Camtasia Project.tscproj"
     write(os.path.join(path, audioName), freq, recording)
+    data, rate = sf.read(os.path.join(path, audioName))
+    meter = pyln.Meter(rate)  # create BS.1770 meter
+    loudness = meter.integrated_loudness(data)  # measure loudness
     # Read the Camtasia Json Template
     jsonFileName = "CamtasiaProject.json"
     camtasiaTemplate = open(os.path.join(path, jsonFileName), "r")
@@ -52,7 +59,7 @@ def record():
     # Sources
     sourceBin = json_object["sourceBin"]
     source = {"id": index+1, "src": str(audioName), "rect": [0, 0, 0, 0], "lastMod": "20220214T112013", "loudnessNormalization": True, "sourceTracks": [{"range": [0, duration*10000000], "type": 2, "editRate": 10000000, "trackRect": [
-                                           0, 0, 0, 0], "sampleRate": 44100, "bitDepth": 32, "numChannels": 2, "integratedLUFS": -49.6945558155127, "peakLevel": 0.022308349609375, "metaData": ""}], "metadata": {"timeAdded": "20220214T113239.084520"}}
+                                           0, 0, 0, 0], "sampleRate": 44100, "bitDepth": 32, "numChannels": 2, "integratedLUFS": loudness, "peakLevel": 0.022308349609375, "metaData": ""}], "metadata": {"timeAdded": "20220214T113239.084520"}}
     sourceBin.append(source)
     json_object["sourceBin"] = sourceBin
     a_file = open(os.path.join(path, jsonFileName), "w")
@@ -107,6 +114,19 @@ def changeFrame():
     mainFrame.pack()
 
 
+def splitSentence(sentence: str):
+    sentArray = sentence.split()
+    sentLen = len(sentArray)
+    part1 = round(sentLen/2)
+    part1Len = 0
+    for i in range(part1):
+        part1Len += len(sentArray[i])+1
+    result = []
+    result.append(sentence[:part1Len])
+    result.append(sentence[part1Len:])
+    return result
+
+
 def selectSubtitleFile():
     global startbutton
     global subtitles
@@ -127,6 +147,16 @@ def selectSubtitleFile():
         path = Path(filename)
         subtitles = Main.main(path)
         if len(subtitles) > 0:
+            previousIndex = 0
+            for i in range(len(subtitles)):
+                if subtitles[i]['sentence'] == '':
+                    previousIndex = i
+                else:
+                    if i > 0 and subtitles[i-1]['sentence'] == '':
+                        subtitles[i-1]['sentence'] = splitSentence(
+                            subtitles[i]['sentence'])[0]
+                        subtitles[i]['sentence'] = splitSentence(
+                            subtitles[i]['sentence'])[1]
             sentence = Main.translateText('en', 'fa', subtitles[0]['sentence'])
             sentenceStartTime = subtitles[0]["sentenceStartTime"]
             sentenceEndTime = subtitles[0]["sentenceEndTime"]

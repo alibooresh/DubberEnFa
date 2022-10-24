@@ -62,6 +62,8 @@ def getTimeLen(lineStartTime, lineEndTime) -> int:
     seconds_in_day = 24 * 60 * 60
     diffLen = divmod(
         diffrent.days * seconds_in_day + diffrent.seconds, 60)[1]
+    if diffLen < 1:
+        diffLen = 1
     return diffLen
 
 
@@ -80,6 +82,10 @@ def displaySentences(sentences):
         print()
         print('Time Length is :'+'\t\t =>\t'
               + str(sentence['sentenceTimeLen']))
+
+
+def getSentenceType(text: str):
+    return
 
 
 def main(path: str) -> list:
