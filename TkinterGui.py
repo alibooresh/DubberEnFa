@@ -217,6 +217,7 @@ filePickFrame.configure(bg='#1f1f1f')
 filePickFrame.pack()
 logoLabel = Label(mainFrame, image=img, bg='#1f1f1f')
 logoLabel.pack()
+
 appNameLabel = Label(mainFrame, text=Main.persianTextReshape(
     "نرم افزار دستیار دوبله DubberEnFa"), bg='#1f1f1f', fg="white", font="tahoma 18")
 appNameLabel.pack()

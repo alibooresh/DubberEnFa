@@ -186,4 +186,4 @@ def main(path: str) -> list:
                     previousText = previousText+' '+sentence
                 else:
                     previousText = sentence
-    print(sentences)
+    return sentences
