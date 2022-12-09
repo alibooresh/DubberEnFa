@@ -35,7 +35,7 @@ def strToDate(strTime) -> datetime:
         second = int(seperated[2])
         milisec = int(times[1])
     return (datetime.time(hour=hour, minute=minute,
-                          second=second, microsecond=milisec))
+                          second=second, microsecond=milisec*1000))
 
 
 def strToDateTime(strTime) -> datetime:
@@ -51,17 +51,15 @@ def strToDateTime(strTime) -> datetime:
         second = int(seperated[2])
         milisec = int(times[1])
     return (datetime.datetime(year=2000, month=1, day=1, hour=hour,
-                              minute=minute, second=second, microsecond=milisec))
+                              minute=minute, second=second, microsecond=milisec*1000))
 
 
-def getTimeLen(lineStartTime, lineEndTime) -> int:
+def getTimeLen(lineStartTime, lineEndTime) -> float:
     diffLen = 0
     start = strToDateTime(lineStartTime)
     end = strToDateTime(lineEndTime)
     diffrent = end - start
-    seconds_in_day = 24 * 60 * 60
-    diffLen = divmod(
-        diffrent.days * seconds_in_day + diffrent.seconds, 60)[1]
+    diffLen = diffrent.total_seconds()
     if diffLen < 1:
         diffLen = 1
     return diffLen
@@ -100,8 +98,10 @@ def main(path: str) -> list:
     willAddOriginalSentence = ''
     id = 1
     sentences = []
+    subtitleLines = ''
     print("\t\t******** Starting Process... ********")
     print("\t\t******** Reading SRT File... ********")
+    file = ''
     try:
         file = open(path, mode='r', encoding='utf-8')
     except:
@@ -120,14 +120,6 @@ def main(path: str) -> list:
         isLineNum = re.search(r'^\s*\d+\s*$', sentence, re.M | re.I)
         isText = not(bool(re.search(r'-->', sentence, re.M | re.I))) and not(
             bool(re.search(r'^\s*\d+\s*$', sentence, re.M | re.I)))
-
-        if(isTime):
-            timeInfo = sentence.split("-->")
-            lineStartTime = timeInfo[0]
-            lineEndTime = timeInfo[1]
-            sentenceStartTime = strToDate(lineStartTime)
-            sentenceEndTime = strToDate(lineEndTime)
-            sentenceTimeLen = getTimeLen(lineStartTime, lineEndTime)
         if(isLineNum):
             if(index > 0):
                 tmpDic = {
@@ -143,25 +135,31 @@ def main(path: str) -> list:
                 sentenceTimeLen = 0
                 willAddOriginalSentence = ''
                 id = id+1
-
-        if(isText):  # Line have text
-            isContainSentence = re.search(
-                r'\s*[^.!?]*[.!?]', sentence, re.M | re.I)
-            isCompleteSentense = re.search(
-                r'\s*[^.!?]*[.!?]', sentence, re.M | re.I)
+        if(isTime):
+            timeInfo = sentence.split("-->")
+            lineStartTime = timeInfo[0]
+            lineEndTime = timeInfo[1]
+            sentenceStartTime = strToDate(lineStartTime)
+            sentenceEndTime = strToDate(lineEndTime)
+            sentenceTimeLen = getTimeLen(lineStartTime, lineEndTime)
+        if (isText):  # Line have text
+            isContainSentence = bool(re.search(r'\s*[^.!?]*[.!?]', sentence, re.M | re.I))
+            isCompleteSentense = bool(re.search(r'\s*[^.!?]*[.!?]', sentence, re.M | re.I))
             textList = re.findall(r'\s*[^.!?]*[.!?]', sentence, re.M | re.I)
             if(isContainSentence):  # Text have sentence(es)
                 sentenceLen = 0
                 for lineIndex in range(0, len(textList)):
                     line = textList[lineIndex]
                     sentenceLen = + len(line)
-                    isCompleteSentense = re.search(
-                        r'\s*[^.!?]*[.!?]', line, re.M | re.I)
-                    if(isCompleteSentense):  # Sentence is complete
+                    isCompleteSentense = bool(re.search(r'\s*[^.!?]*[.!?]', line, re.M | re.I))
+                    if (isCompleteSentense):  # Sentence is complete
                         # Add to previous text(non complete sentence)
-                        completeSentense = previousText + ' ' + line
-                        willAddOriginalSentence = willAddOriginalSentence + \
-                            ' '+completeSentense
+                        if (len(previousText) > 0):
+                            completeSentense = previousText + ' ' + line
+                            willAddOriginalSentence = willAddOriginalSentence + ' '+completeSentense
+                        else:
+                            completeSentense = line
+                            willAddOriginalSentence = completeSentense
                         previousText = ''
                         if(lineIndex == len(textList)-1):
                             length = len(sentence)-sentenceLen
@@ -184,5 +182,8 @@ def main(path: str) -> list:
                     else:  # If it's not a complete sentence add it to previous text
                         previousText = previousText+' '+sentence
             else:  # If it haven't a complete sentence add it to previous text
-                previousText = previousText+' '+sentence
-    return sentences
+                if (len(previousText) > 0):
+                    previousText = previousText+' '+sentence
+                else:
+                    previousText = sentence
+    print(sentences)
