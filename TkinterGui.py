@@ -1,3 +1,4 @@
+import math
 from tkinter import *
 from PIL import ImageTk, Image
 from scipy.io.wavfile import write
@@ -11,10 +12,12 @@ from pathlib import Path
 import pyloudnorm as pyln
 import soundfile as sf
 
+nextEmptyStartTime = 0
 
 def record():
     global index
     global subtitles
+    global nextEmptyStartTime
     secondInCamtasia = 30
     durationTime = subtitles[index]["sentenceTimeLen"]*secondInCamtasia
     sentenceStartTime = subtitles[index]["sentenceStartTime"]
@@ -38,7 +41,9 @@ def record():
     # file with the given sampling frequency
     audioName = "recording-"+str(index+1) + ".wav"
     audionameindex = "recording-"+str(index+1)
-    path = r"B:\Work\DU\dubassistant\Camtasia Project.tscproj"
+    absolute_path = os.path.dirname(__file__)
+    relative_path = r"CamtasiaProject.tscproj"
+    path = os.path.join(absolute_path, relative_path)
     write(os.path.join(path, audioName), freq, recording)
     data, rate = sf.read(os.path.join(path, audioName))
     meter = pyln.Meter(rate)  # create BS.1770 meter
@@ -49,10 +54,15 @@ def record():
     json_object = json.load(camtasiaTemplate)
     camtasiaTemplate.close()
     json_object["timeline"]["id"] = len(subtitles)+1
+    if startTime < nextEmptyStartTime:
+        startTime = nextEmptyStartTime
+    print("nextEmptyStartTime", nextEmptyStartTime)
+    print("startTime=> ",startTime)
+    print("durationTime => ",math.ceil(durationTime))
+    print("startTime+math.ceil(durationTime)=> ",startTime+math.ceil(durationTime))
     medias = json_object["timeline"]["sceneTrack"]["scenes"][0]["csml"]["tracks"][0]["medias"]
-
     media = {"id": len(subtitles)+index+2, "_type": "AMFile", "src": index+1, "trackNumber": 0, "attributes": {"ident": str(audionameindex), "gain": 1, "mixToMono": False, "loudnessNormalization": True},
-             "channelNumber": "0,1", "effects": [], "start": startTime, "duration": durationTime, "mediaStart": 0, "mediaDuration": durationTime, "scalar": 1, "metadata": {"clipSpeedAttribute": False}, "animationTracks": {}}
+             "channelNumber": "0,1", "effects": [], "start": startTime, "duration": math.ceil(durationTime), "mediaStart": 0, "mediaDuration": math.ceil(durationTime), "scalar": 1, "metadata": {"clipSpeedAttribute": False}, "animationTracks": {}}
 
     medias.append(media)
     json_object["timeline"]["sceneTrack"]["scenes"][0]["csml"]["tracks"][0]["medias"] = medias
@@ -60,6 +70,7 @@ def record():
     sourceBin = json_object["sourceBin"]
     source = {"id": index+1, "src": str(audioName), "rect": [0, 0, 0, 0], "lastMod": "20220214T112013", "loudnessNormalization": True, "sourceTracks": [{"range": [0, duration*10000000], "type": 2, "editRate": 10000000, "trackRect": [
                                            0, 0, 0, 0], "sampleRate": 44100, "bitDepth": 32, "numChannels": 2, "integratedLUFS": loudness, "peakLevel": 0.022308349609375, "metaData": ""}], "metadata": {"timeAdded": "20220214T113239.084520"}}
+    nextEmptyStartTime = startTime + math.ceil(durationTime)
     sourceBin.append(source)
     json_object["sourceBin"] = sourceBin
     a_file = open(os.path.join(path, jsonFileName), "w")
@@ -98,7 +109,9 @@ def Decrease():
 
 def finish():
     global root
-    path = r"B:\Work\DU\dubassistant\Camtasia Project.tscproj"
+    absolute_path = os.path.dirname(__file__)
+    relative_path = r"CamtasiaProject.tscproj"
+    path = os.path.join(absolute_path, relative_path)
     jsonFileName = "CamtasiaProject.json"
     CamtasiaProjectFileName = "CamtasiaProject.tscproj"
     camtasiaTemplate = open(os.path.join(path, jsonFileName), "r")
@@ -192,7 +205,9 @@ subtitles = [{'sentence': '', 'sentenceStartTime': '',
 
 templateFile = open("CamtasiaTemplate.json", "r")
 template = json.load(templateFile)
-path = r"B:\Work\DU\dubassistant\Camtasia Project.tscproj"
+absolute_path = os.path.dirname(__file__)
+relative_path = r"CamtasiaProject.tscproj"
+path = os.path.join(absolute_path, relative_path)
 jsonFileName = "CamtasiaProject.json"
 for file in os.listdir(path):
     base_file, ext = os.path.splitext(file)
